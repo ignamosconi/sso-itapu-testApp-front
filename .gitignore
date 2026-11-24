@@ -1,0 +1,22 @@
+# Logs
+logs
+*.log
+npm-debug.log*
+
+# dependencias y build
+node_modules
+dist
+dist-ssr
+*.local
+*.tsbuildinfo
+
+# variables de entorno (el .env.example sí se commitea)
+.env
+.env.*
+!.env.example
+
+# Editor
+.vscode/*
+!.vscode/extensions.json
+.idea
+.DS_Store
