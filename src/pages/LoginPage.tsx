@@ -12,7 +12,7 @@ export function LoginPage() {
         </span>
         <h1>Fechas de exámenes</h1>
         <p className="login__lead">
-          Consultá cuándo y dónde rendís tus exámenes finales. El acceso es solo para la comunidad de ITAPU.
+          Consultá cuándo y dónde rendís tus exámenes.
         </p>
 
         <button type="button" className="btn btn--primary btn--lg" onClick={() => void signIn()} disabled={signingIn}>
@@ -21,10 +21,6 @@ export function LoginPage() {
 
         {signingIn && <p className="hint">Se abrió una ventana de ITAPU. Se cerrará sola al terminar.</p>}
         {notice && !signingIn && <p className="banner banner--warn">{notice}</p>}
-
-        <p className="login__fine">
-          Los horarios ya no son públicos: solo los ven quienes inician sesión con su cuenta institucional.
-        </p>
       </div>
     </main>
   )
