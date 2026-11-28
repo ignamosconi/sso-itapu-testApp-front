@@ -4,7 +4,8 @@ import { FolderIcon } from './Icons'
 
 export function Header({ children }: { children?: ReactNode }) {
   const { user, signOut } = useAuth()
-  const subtitle = [user?.cargo, user?.especialidad].filter(Boolean).join(' · ')
+  // Ej.: "Preceptor, Profesor · Sistemas"
+  const subtitle = [user?.cargos.join(', '), user?.especialidades.join(', ')].filter(Boolean).join(' · ')
 
   return (
     <header className="topbar">
@@ -24,7 +25,7 @@ export function Header({ children }: { children?: ReactNode }) {
         <div className="topbar__user">
           <div className="topbar__who">
             <strong>{user?.displayName}</strong>
-            {subtitle && <small>{subtitle}</small>}
+            {subtitle && <small title={subtitle}>{subtitle}</small>}
           </div>
           <button type="button" className="btn btn--ghost" onClick={() => void signOut()}>
             Salir

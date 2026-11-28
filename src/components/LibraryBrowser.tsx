@@ -32,36 +32,41 @@ interface LibraryBrowserProps {
 export function LibraryBrowser({ mode, asStudent, previewSpecialty, directory = null }: LibraryBrowserProps) {
   const [folderId, setFolderId] = useState<string | null>(null)
   const [data, setData] = useState<LibraryBrowseDto | null>(null)
-  const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
   const [modal, setModal] = useState<Modal>(null)
   const [reloadKey, setReloadKey] = useState(0)
+
+  // Identifica el pedido actual; cambia cuando cambia cualquier parámetro o se fuerza un reload
+  const requestKey = JSON.stringify([folderId, asStudent ?? false, previewSpecialty ?? null, reloadKey])
+  // Último pedido que terminó (bien o con error)
+  const [loadedKey, setLoadedKey] = useState<string | null>(null)
+  const loading = loadedKey !== requestKey
 
   const manage = mode === 'manage'
 
   useEffect(() => {
     let active = true
-    setLoading(true)
     browseLibrary({ folderId, asStudent, previewSpecialty })
       .then((result) => {
         if (!active) return
         setData(result)
         setError(null)
+        setLoadedKey(requestKey)
       })
       .catch((e: unknown) => {
         if (!active) return
         // La carpeta ya no existe (la borraron o dejó de ser visible): volvemos al inicio.
         if (e instanceof ApiError && e.status === 404 && folderId) {
-          setFolderId(null)
+          setFolderId(null) // cambia requestKey → sigue "cargando" hasta que llegue la raíz
           return
         }
         setError(e instanceof Error ? e.message : 'No se pudo cargar el contenido')
+        setLoadedKey(requestKey)
       })
-      .finally(() => active && setLoading(false))
     return () => {
       active = false
     }
-  }, [folderId, asStudent, previewSpecialty, reloadKey])
+  }, [requestKey, folderId, asStudent, previewSpecialty])
 
   const reload = useCallback(() => setReloadKey((key) => key + 1), [])
   const closeModal = useCallback(() => setModal(null), [])

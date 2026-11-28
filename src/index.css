@@ -71,7 +71,7 @@ button:disabled { cursor: not-allowed; opacity: 0.55; }
 .topbar__controls { display: flex; align-items: center; gap: 0.9rem; flex-wrap: wrap; margin-left: 0.5rem; }
 .topbar__user { margin-left: auto; display: flex; align-items: center; gap: 0.75rem; }
 .topbar__who { text-align: right; line-height: 1.2; }
-.topbar__who small { display: block; opacity: 0.75; font-size: 0.78rem; }
+.topbar__who small { display: block; opacity: 0.75; font-size: 0.78rem; max-width: 22rem; margin-left: auto; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 
 .segmented { display: inline-flex; background: rgb(255 255 255 / 12%); border-radius: 10px; padding: 3px; }
 .segmented button { border: 0; background: transparent; color: #fff; padding: 0.4rem 0.9rem; border-radius: 7px; font-weight: 600; }

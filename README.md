@@ -14,8 +14,8 @@ Necesitás tener corriendo el SSO (`:3000`) y el backend (`:3001`).
 
 ## Qué ve cada usuario
 
-- **Alumno** → entra directo a la vista de carpetas (solo lectura). Solo ve las carpetas habilitadas para su especialidad.
-- **Personal** (cargo ∈ `STAFF_CARGOS` del backend) → panel de administración (CRUD de carpetas y PDFs) y un botón
+- **Alumno** → entra directo a la vista de carpetas (solo lectura). Solo ve las carpetas habilitadas para alguna de sus especialidades.
+- **Personal** (alguno de sus cargos ∈ `STAFF_CARGOS` del backend; por ejemplo, alguien que es Profesor y Preceptor) → panel de administración (CRUD de carpetas y PDFs) y un botón
   **Vista de alumno** para ver exactamente lo que ve un alumno, eligiendo la especialidad a previsualizar.
 
 ## Estructura

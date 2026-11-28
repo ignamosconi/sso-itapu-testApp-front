@@ -20,8 +20,11 @@ export interface SessionUserDto {
   sub: string
   displayName: string
   email: string | null
-  cargo: string | null
-  especialidad: string | null
+  /** Cargos según el SSO (al menos uno; ej. ['Preceptor', 'Profesor']) */
+  cargos: string[]
+  /** Especialidades según el SSO (al menos una) */
+  especialidades: string[]
+  /** true si ALGUNO de sus cargos está en STAFF_CARGOS (lo decide el backend) */
   isStaff: boolean
 }
 
