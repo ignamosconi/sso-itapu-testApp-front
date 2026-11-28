@@ -9,6 +9,6 @@ export default function App() {
   if (status === 'loading') return <p className="splash">Cargando…</p>
   if (!user) return <LoginPage />
 
-  // El backend decide quién es personal (cargo ∈ STAFF_CARGOS); el front solo obedece `isStaff`.
+  // El backend decide quién es personal (alguno de sus cargos ∈ STAFF_CARGOS); el front solo obedece `isStaff`.
   return user.isStaff ? <StaffHome /> : <StudentHome />
 }

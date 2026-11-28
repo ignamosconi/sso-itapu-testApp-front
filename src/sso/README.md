@@ -12,7 +12,7 @@ La única variable del front es `VITE_API_URL`.
 | **2. Escuchar postMessage** | `ssoLogin.ts` (`handle`) | Verifica `event.origin` (== origen del SSO que informa el backend) **y** `state`. Si algo no cierra, el mensaje se ignora |
 | **Cierre automático del popup** | `ssoLogin.ts` (`settle`) y `popupRelay.ts` | Al llegar el code válido la ventana principal hace `popup.close()`. Además, si el SSO redirige el popup a nuestra `redirect_uri`, la página de retorno reenvía el code y ejecuta `window.close()` |
 | **3. Canjear code por tokens** | `../api/auth.api.ts` → `completeSsoLogin()` | Se manda `{code, state}` al backend, que hace `POST /sso/token` con el `client_secret`. El front nunca ve tokens |
-| **4. Identificar al usuario** | `../auth/AuthContext.tsx` | El backend responde con `sub`, `cargo`, `especialidad` y `isStaff`; el front solo los muestra |
+| **4. Identificar al usuario** | `../auth/AuthContext.tsx` | El backend responde con `sub`, las listas `cargos` y `especialidades`, e `isStaff`; el front solo los muestra |
 | **5. Renovar tokens** | *(backend)* | Transparente: lo hace el backend en cada pedido si el access_token está por vencer. Si falla, el front recibe 401 y vuelve al login |
 | **6. Cerrar sesión** | `../auth/AuthContext.tsx` → `signOut()` | `POST /auth/logout`; el backend revoca en el SSO y borra la cookie |
 | **Seguridad: nada en localStorage** | `../api/http.ts` | Todo viaja con `credentials: 'include'` (cookie HttpOnly) |
