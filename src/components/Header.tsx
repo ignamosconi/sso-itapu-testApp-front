@@ -20,14 +20,14 @@ export function Header({ children }: { children?: ReactNode }) {
           </div>
         </div>
 
-        <div className="topbar__controls">{children}</div>
+        {children && <div className="topbar__controls">{children}</div>}
 
         <div className="topbar__user">
           <div className="topbar__who">
             <strong>{user?.displayName}</strong>
             {subtitle && <small title={subtitle}>{subtitle}</small>}
           </div>
-          <button type="button" className="btn btn--ghost" onClick={() => void signOut()}>
+          <button type="button" className="btn btn--ghost topbar__logout" onClick={() => void signOut()}>
             Salir
           </button>
         </div>

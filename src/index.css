@@ -69,9 +69,11 @@ button:disabled { cursor: not-allowed; opacity: 0.55; }
 .brand small { opacity: 0.7; letter-spacing: 0.12em; font-size: 0.7rem; }
 .brand__mark { display: grid; place-items: center; width: 36px; height: 36px; border-radius: 9px; background: var(--accent); color: var(--primary); }
 .topbar__controls { display: flex; align-items: center; gap: 0.9rem; flex-wrap: wrap; margin-left: 0.5rem; }
-.topbar__user { margin-left: auto; display: flex; align-items: center; gap: 0.75rem; }
-.topbar__who { text-align: right; line-height: 1.2; }
+.topbar__user { margin-left: auto; min-width: 0; display: flex; align-items: center; gap: 0.75rem; }
+.topbar__who { min-width: 0; text-align: right; line-height: 1.2; }
+.topbar__who strong { display: block; overflow-wrap: anywhere; }
 .topbar__who small { display: block; opacity: 0.75; font-size: 0.78rem; max-width: 22rem; margin-left: auto; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.topbar__logout { flex-shrink: 0; }
 
 .segmented { display: inline-flex; background: rgb(255 255 255 / 12%); border-radius: 10px; padding: 3px; }
 .segmented button { border: 0; background: transparent; color: #fff; padding: 0.4rem 0.9rem; border-radius: 7px; font-weight: 600; }
@@ -155,7 +157,31 @@ button:disabled { cursor: not-allowed; opacity: 0.55; }
 .form-error { color: var(--danger); background: var(--danger-soft); padding: 0.6rem 0.8rem; border-radius: 8px; margin: 0; font-size: 0.9rem; }
 
 @media (max-width: 640px) {
-  .topbar__user { margin-left: 0; width: 100%; justify-content: space-between; }
+  /* Barra en mobile, de arriba hacia abajo:
+     marca + Salir · nombre y cargos · (personal) Administrar/Vista de alumno · selector de especialidad */
+  .topbar__inner {
+    display: grid; grid-template-columns: minmax(0, 1fr) auto;
+    grid-template-areas: 'brand logout' 'who who' 'controls controls';
+    gap: 0.75rem; padding: 0.75rem 1rem 0.9rem;
+  }
+  /* En mobile el nombre y "Salir" se separan: Salir sube al lado de la marca. */
+  .topbar__user { display: contents; }
+  .brand { grid-area: brand; min-width: 0; }
+  .topbar__logout { grid-area: logout; padding: 0.45rem 0.8rem; border: 1px solid rgb(255 255 255 / 35%); }
+  .topbar__who {
+    grid-area: who; text-align: left;
+    padding-top: 0.65rem; border-top: 1px solid rgb(255 255 255 / 15%);
+  }
+  .topbar__who small {
+    max-width: none; margin: 0.15rem 0 0; white-space: normal;
+    display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; line-clamp: 2;
+  }
+  .topbar__controls { grid-area: controls; margin-left: 0; flex-direction: column; align-items: stretch; gap: 0.6rem; }
+  .segmented { display: flex; }
+  .segmented button { flex: 1; padding: 0.5rem 0.5rem; }
+  .preview-select { flex-direction: column; align-items: stretch; gap: 0.3rem; font-size: 0.8rem; }
+  .preview-select span { opacity: 0.8; }
+  .preview-select select { width: 100%; min-width: 0; padding: 0.5rem 0.6rem; font-size: 0.95rem; }
   .file-row__meta { display: none; }
   .page__title { font-size: 1.5rem; }
 }
